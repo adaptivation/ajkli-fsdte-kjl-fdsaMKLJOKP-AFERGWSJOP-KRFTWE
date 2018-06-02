@@ -18,29 +18,13 @@ Client = discord.Client()
 client = commands.Bot(command_prefix = "~")
 
 
-#Checking local machine time async 
-async def add_match(arg1,arg2):
-    try:
-        file = open("matches.txt", "a")
-        file.write("\n" + str(arg1)+ " " +str(arg2))
-        file.close()
-    except:
-        embed = discord.Embed(title="ERROR", description="Please contact the developer")
-        await client.send_message(await client.send_message(message.channel, embed=embed))
-    file.close()
-@client.event
-async def on_ready():
-
-    print("Bot is ready")
-    await client.change_presence(game=discord.Game(name='play.olympusnetwork.eu'))
-
 @client.event
 async def on_message(message):
     canceled = False
     #NEW UHC COMMAND
     
-    if message.content.upper().startswith('~ADDHOST'):
-        if "435514545348411402" in [role.id for role in message.author.roles]:       #Change this with your role's ID
+    if message.content.upper().startswith('~NEWGAME'):
+        if "435514545348411402" in [role.id for role in message.author.roles]:       #Change this with your role's ID  // Checking for appropriate role
             embed = discord.Embed(title="Olympus Hosts", description="Please insert a time for the host to take place (Type cancel to cancel)", color=0x660033)
             await client.send_message(message.channel, embed=embed)
             response = await client.wait_for_message(author=message.author, timeout=60)
@@ -126,20 +110,20 @@ async def on_message(message):
             
             
         if not canceled:
-            embed = discord.Embed(title="NEW HOST", description = "There is a new scheduled host", color=0x800080)
-            embed.set_thumbnail(url="https://i.imgur.com/DD5hyRO.jpg")
-            embed.add_field(name="Time/Day", value=" TIME " + time_input +" |~| DAY "+ day_input)
-            embed.add_field(name="Scenarios", value=scenarios_input)
-            embed.add_field(name="Mode", value=mode_input)
-            embed.add_field(name="Host", value=host_input)
+            embed = discord.Embed(title="NEW HOST", description = "There is a new scheduled host for " + day_input + " at " + time_input, color=0x800080)
+            embed.set_thumbnail(url="https://i.imgur.com/gXGuqNh.png")
+            embed.add_field(name="**MATCH DETAILS**", value="\n\n**SCENARIOS** " +scenarios_input + "\n\n**MODE** " +mode_input + "\n\n**HOST** " +host_input + "\n")  #" **TIME** " + time_input +"\n**DAY** "+ day_input + 
             embed.set_footer(text="IP: play.olympusnetwork.eu")
             await client.send_message(client.get_channel("435514441052717057"), embed=embed)       #Change this with your channel's ID     
-            await client.send_message(client.get_channel("435514441052717057"), "@everyone")       #Change this with your channel's ID 
-            
-            await add_match(time_input,day_input)
-        
- 
-
+            await client.send_message(client.get_channel("435514441052717057"), "@everyone")       #Change this with your channel's ID
+    
+    if message.content.upper().startswith('~WLOFF'):
+        if "435514545348411402" in [role.id for role in message.author.roles]:       #Change this with your role's ID  // Checking for appropriate role
+            embed = discord.Embed(title="WHITELIST OFF", description="The planned game will be starting soon", color=0x800080)
+            embed.set_thumbnail(url="https://i.imgur.com/gXGuqNh.png")
+            embed.set_footer(text="IP: play.olympusnetwork.eu")
+            await client.send_message(client.get_channel("435514441052717057"), embed=embed)       #Change this with your channel's ID     
+            await client.send_message(client.get_channel("435514441052717057"), "@everyone")       #Change this with your channel's ID
 
 
 client.run("")

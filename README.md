@@ -1,6 +1,5 @@
 # OlympusHosts_DiscordBot
 
-A simple bot which let's you schedule UHC games and later announce them to the discord channel.
+A simple bot which let's you "plan" and post UHC Host events on your discord.
 
-Announcer bot, needs to be initiated via the discord command ~botstart in order to start checking
-Planner bot, contains the ~addhost command which guides you through the scheduling process of the game
+The bot is hardcoded but its pretty easy to have it working even if amateur!

@@ -126,4 +126,4 @@ async def on_message(message):
             await client.send_message(client.get_channel("435514441052717057"), "@everyone")       #Change this with your channel's ID
 
 
-client.run("")
+client.run("NDM3MzA1MTQxMjM0ODkyODEw.Df2hqA.OR9oHSsUMDxqOd8ib6Vez8_xxlc")
